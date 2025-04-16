@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-white text-stronger-black;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+  }
+
+  :root {
+    --font-gotham: 'Gotham', sans-serif;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-stronger-red text-white px-6 py-2 rounded-lg font-medium hover:bg-red-700 transition-colors;
+  }
+
+  .btn-secondary {
+    @apply bg-transparent border-2 border-stronger-red text-stronger-red px-6 py-3 rounded-lg font-semibold hover:bg-stronger-red hover:text-white transition-colors;
+  }
+
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .card-hover {
+    @apply transform hover:scale-105 transition-transform duration-300;
+  }
+  
+  .section-padding {
+    @apply py-12 md:py-20;
+  }
+
+  .neon-text {
+    @apply text-stronger-red;
+    text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 20px #ff0000;
+    animation: neon-pulse 1.5s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes neon-pulse {
+  from {
+    text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 20px #ff0000;
+  }
+  to {
+    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-in-out;
+} 
