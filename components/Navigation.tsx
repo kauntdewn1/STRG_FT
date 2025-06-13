@@ -89,12 +89,6 @@ export default function Navigation() {
             >
               Contato
             </Link>
-            <Link
-              href="/login"
-              className="btn-primary text-sm hover:scale-105 transition-transform duration-300"
-            >
-              Área do Aluno
-            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -177,13 +171,6 @@ export default function Navigation() {
             onClick={() => setIsMenuOpen(false)}
           >
             Contato
-          </Link>
-          <Link
-            href="/login"
-            className="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-stronger-red hover:scale-105 transition-all duration-300"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            Área do Aluno
           </Link>
         </div>
       </motion.div>

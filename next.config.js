@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-<<<<<<< HEAD
+  images: {
+    domains: ['res.cloudinary.com'],
+  },
   output: 'standalone',
   images: {
     remotePatterns: [
@@ -19,10 +21,6 @@ const nextConfig = {
   // Configuração para páginas estáticas
   generateBuildId: async () => {
     return 'build-' + Date.now()
-=======
-  images: {
-    domains: ['res.cloudinary.com'],
->>>>>>> a73b54eddfb150a40b8283ef9102b7090f1fe1ab
   },
 }
 

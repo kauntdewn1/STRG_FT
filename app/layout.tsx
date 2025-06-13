@@ -1,7 +1,5 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import Navigation from '@/components/Navigation'
-import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'Stronger Fitness - Centro de Treinamento de Alta Performance',
@@ -16,12 +14,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className="min-h-screen bg-white">
-        <Navigation />
-        <main className="min-h-screen animate-fade-in">
-          {children}
-        </main>
-        <Footer />
+      <body className="min-h-screen bg-black">
+        {children}
       </body>
     </html>
   )

@@ -1,106 +1,112 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import HeroSection from '@/components/HeroSection'
+'use client'
+
+import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
+import { useRouter } from 'next/navigation'
+import FirebaseLeadForm from '@/components/FirebaseLeadForm'
+
+const BOTPRESS_SCRIPT = 'https://cdn.botpress.cloud/webchat/v3.0/inject.js'
 
 export default function Home() {
+  const [showForm, setShowForm] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [leadRegistered, setLeadRegistered] = useState(false)
+  const router = useRouter()
+
+  // Injetar scripts do Botpress após cadastro
+  useEffect(() => {
+    if (leadRegistered) {
+      // Script principal do Botpress
+      const script1 = document.createElement('script')
+      script1.src = BOTPRESS_SCRIPT
+      script1.defer = true
+      document.body.appendChild(script1)
+
+      // Script customizado do cliente
+      const clientId = process.env.NEXT_PUBLIC_CLIENTE_ID || 'xxxx'
+      const script2 = document.createElement('script')
+      script2.src = `https://files.bpcontent.cloud/2025/04/21/15/20250421150456-${clientId}.js`
+      script2.defer = true
+      document.body.appendChild(script2)
+
+      return () => {
+        document.body.removeChild(script1)
+        document.body.removeChild(script2)
+      }
+    }
+  }, [leadRegistered])
+
+  const handleLogin = async () => {
+    setIsLoading(true)
+    try {
+      // Aqui você pode implementar sua própria lógica de autenticação
+      console.log('Iniciando processo de login...')
+      router.push('/aluno')
+    } catch (error) {
+      console.error('Erro ao fazer login:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   return (
-    <main>
-      <HeroSection />
+    <main className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+      {/* Background com nova imagem */}
+      <div
+        className="absolute inset-0 w-full h-full bg-cover bg-center z-0"
+        style={{
+          backgroundImage: `url('/bk_3.png')`,
+        }}
+      />
+      {/* Degradê preto animado */}
+      <motion.div
+        className="absolute inset-0 w-full h-full z-10"
+        initial={{ opacity: 0.7 }}
+        animate={{ opacity: [0.7, 0.9, 0.7] }}
+        transition={{ duration: 4, repeat: Infinity, repeatType: 'reverse' }}
+        style={{
+          background: 'linear-gradient(120deg, rgba(0,0,0,0.95) 60%, rgba(0,0,0,0.7) 100%)',
+        }}
+      />
+      {/* Conteúdo principal */}
+      <div className="relative z-20 flex flex-col items-center justify-center w-full h-full min-h-screen">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="flex flex-col items-center justify-center space-y-12"
+        >
+          {/* Logo centralizada sem container escuro */}
+          <img
+            src="/logo stronger1.png"
+            alt="Logo Stronger Fitness"
+            className="w-full max-w-[60px] sm:max-w-[40px] h-auto object-contain drop-shadow-2xl mx-auto my-4"
+            style={{ maxWidth: '100%', height: 'auto' }}
+          />
 
-      {/* AI Section */}
-      <section className="py-20 bg-white">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-stronger-red mb-4">
-              🚀 A ACADEMIA DO FUTURO JÁ ESTÁ AQUI!
-            </h2>
-            <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-              A Stronger Fitness já se destaca pela infraestrutura de ponta. Agora, é hora de adicionar inteligência ao treino e se tornar referência absoluta no mercado.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-stronger-black">
-                Com a integração da IA, sua academia terá:
-              </h3>
-              <ul className="space-y-4">
-                <li className="flex items-start">
-                  <span className="text-stronger-red text-xl mr-2">✅</span>
-                  <span className="text-gray-700">Mais alunos fidelizados e engajados com a tecnologia</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-stronger-red text-xl mr-2">✅</span>
-                  <span className="text-gray-700">Diferencial de mercado para atrair bodybuilders e atletas sérios</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-stronger-red text-xl mr-2">✅</span>
-                  <span className="text-gray-700">Resultados mais rápidos e treinos mais eficientes</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-stronger-red text-xl mr-2">✅</span>
-                  <span className="text-gray-700">Monitoramento inteligente para evitar estagnação e lesões</span>
-                </li>
-              </ul>
+          {/* Botão de Cadastro, Formulário ou Chat */}
+          {!showForm && !leadRegistered && (
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setShowForm(true)}
+              disabled={isLoading}
+              className="bg-white text-black px-8 py-4 rounded-none text-lg font-bold hover:bg-gray-200 transition-colors disabled:opacity-50 shadow-xl border border-white/20"
+            >
+              CADASTRAR
+            </motion.button>
+          )}
+          {showForm && !leadRegistered && (
+            <FirebaseLeadForm onSuccess={() => { setLeadRegistered(true); setShowForm(false); }} />
+          )}
+          {leadRegistered && (
+            <div className="flex flex-col items-center justify-center">
+              <p className="text-green-400 text-lg font-bold mb-4 text-center">Cadastro realizado com sucesso! Aguarde o atendimento...</p>
+              {/* O chat do Botpress será carregado automaticamente */}
             </div>
-
-            <div className="bg-stronger-red/5 p-8 rounded-lg">
-              <h3 className="text-2xl font-bold text-stronger-black mb-6">
-                A pergunta final é: <span className="text-stronger-red">sua academia quer seguir no mesmo nível ou ser pioneira na revolução do fitness inteligente?</span>
-              </h3>
-              <div className="space-y-4">
-                <p className="flex items-center text-lg">
-                  <span className="text-stronger-red mr-2">🔹</span>
-                  Seja a primeira academia hardcore a usar IA no Brasil!
-                </p>
-                <p className="flex items-center text-lg">
-                  <span className="text-stronger-red mr-2">🔹</span>
-                  Entre em contato e veja como implementar essa tecnologia agora.
-                </p>
-                <p className="text-xl font-bold text-stronger-red mt-6">
-                  📍 Stronger Fitness – Onde a força encontra a inteligência.
-                </p>
-                <div className="mt-8">
-                  <Link href="/contato" className="btn-primary">
-                    Fale Conosco
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container">
-          <h2 className="text-3xl font-bold text-center mb-12">Por que escolher a Stronger Fitness?</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center p-6">
-              <h3 className="text-xl font-bold mb-4">Treino Personalizado</h3>
-              <p>Programas de treino gerados por IA adaptados às suas necessidades e objetivos.</p>
-            </div>
-            <div className="text-center p-6">
-              <h3 className="text-xl font-bold mb-4">Alta Performance</h3>
-              <p>Estrutura completa e moderna para maximizar seus resultados.</p>
-            </div>
-            <div className="text-center p-6">
-              <h3 className="text-xl font-bold mb-4">Tecnologia</h3>
-              <p>Plataforma digital completa para acompanhar seu progresso.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-stronger-red text-white">
-        <div className="container text-center">
-          <h2 className="text-3xl font-bold mb-8">Pronto para transformar seu corpo?</h2>
-          <Link href="/planos" className="btn-secondary">
-            Comece Agora
-          </Link>
-        </div>
-      </section>
+          )}
+        </motion.div>
+      </div>
     </main>
-  );
+  )
 }

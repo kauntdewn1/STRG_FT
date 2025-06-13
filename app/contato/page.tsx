@@ -13,20 +13,6 @@ export default function Contato() {
         </div>
       </section>
 
-      {/* Contact Form Section */}
-      <section className="py-20">
-        <div className="container">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-white p-8 rounded-lg shadow-sm">
-              <div className="typeform-widget" 
-                data-url="https://form.typeform.com/to/YOUR_FORM_ID" 
-                style={{ width: '100%', height: '500px' }}
-              />
-              <script src="https://embed.typeform.com/next/embed.js" />
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Contact Info Section */}
       <section className="py-20 bg-gray-50">
@@ -35,11 +21,11 @@ export default function Contato() {
             <div className="text-center">
               <h3 className="text-xl font-bold mb-4">Unidade I</h3>
               <p className="text-gray-700 mb-4">
-                Av. T-10, 1047 - St. Bueno<br />
-                Goiânia - GO
+                Av. das Nações, Qd 40 - Lt 31 - Campos Elíseos,<br />
+                Aparecida de Goiânia - GO, 74959-003
               </p>
               <Link 
-                href="https://maps.app.goo.gl/mfZafwiay8YcFHGaA"
+                href="https://g.co/kgs/CBQnJKE"
                 target="_blank"
                 className="text-stronger-red hover:text-stronger-red-dark"
               >
@@ -49,11 +35,11 @@ export default function Contato() {
             <div className="text-center">
               <h3 className="text-xl font-bold mb-4">Unidade II</h3>
               <p className="text-gray-700 mb-4">
-                Av. T-10, 1047 - St. Bueno<br />
-                Goiânia - GO
+                Av. Rita Campos, SN - Quadra 06 Lote 03<br />
+                Aparecida de Goiânia, GO, 74973-162
               </p>
               <Link 
-                href="https://maps.app.goo.gl/5G3bD7sKYMwuW5Ki9"
+                href="https://g.co/kgs/Hrhb5Xg"
                 target="_blank"
                 className="text-stronger-red hover:text-stronger-red-dark"
               >

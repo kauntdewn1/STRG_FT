@@ -8,24 +8,14 @@ const config: Config = {
   ],
   theme: {
     extend: {
-<<<<<<< HEAD
-      colors: {
-        'stronger-red': '#FF0000',
-        'stronger-red-dark': '#CC0000',
-        'stronger-black': '#1A1A1A',
-      },
-      fontFamily: {
-        sans: ['var(--font-gotham)'],
-        heading: ['var(--font-gotham)'],
-=======
-      fontFamily: {
-        sans: ['var(--font-gotham)', 'sans-serif'],
-      },
       colors: {
         'stronger-red': '#E30613',
         'stronger-red-dark': '#B2050F',
         'stronger-black': '#1A1A1A',
->>>>>>> a73b54eddfb150a40b8283ef9102b7090f1fe1ab
+      },
+      fontFamily: {
+        sans: ['var(--font-gotham)', 'sans-serif'],
+        heading: ['var(--font-gotham)'],
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
@@ -48,15 +38,9 @@ const config: Config = {
       },
     },
   },
-<<<<<<< HEAD
-  plugins: [],
-}
-
-=======
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
   ],
 }
->>>>>>> a73b54eddfb150a40b8283ef9102b7090f1fe1ab
 export default config 

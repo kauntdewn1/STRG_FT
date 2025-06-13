@@ -17,58 +17,6 @@ export default function TermosPage() {
               Última atualização: {new Date().toLocaleDateString('pt-BR')}
             </p>
 
-<<<<<<< HEAD
-            <div className="space-y-6">
-              <div>
-                <h2 className="text-2xl font-bold mb-4">1. Aceitação dos Termos</h2>
-                <p className="text-gray-600">
-                  Ao acessar e usar este site, você concorda em cumprir e estar vinculado aos seguintes termos e condições de uso.
-                </p>
-              </div>
-
-              <div>
-                <h2 className="text-2xl font-bold mb-4">2. Uso do Site</h2>
-                <p className="text-gray-600">
-                  O conteúdo deste site é apenas para fins informativos. Não garantimos a precisão, integridade ou atualidade das informações.
-                </p>
-              </div>
-
-              <div>
-                <h2 className="text-2xl font-bold mb-4">3. Propriedade Intelectual</h2>
-                <p className="text-gray-600">
-                  Todo o conteúdo deste site, incluindo textos, gráficos, logotipos, ícones, imagens, é propriedade da Stronger Fitness e está protegido por leis de direitos autorais.
-                </p>
-              </div>
-
-              <div>
-                <h2 className="text-2xl font-bold mb-4">4. Links para Sites de Terceiros</h2>
-                <p className="text-gray-600">
-                  Este site pode conter links para sites de terceiros. Não nos responsabilizamos pelo conteúdo ou práticas de privacidade desses sites.
-                </p>
-              </div>
-
-              <div>
-                <h2 className="text-2xl font-bold mb-4">5. Limitação de Responsabilidade</h2>
-                <p className="text-gray-600">
-                  A Stronger Fitness não será responsável por quaisquer danos diretos, indiretos, incidentais, especiais ou consequenciais resultantes do uso ou incapacidade de usar este site.
-                </p>
-              </div>
-
-              <div>
-                <h2 className="text-2xl font-bold mb-4">6. Modificações nos Termos</h2>
-                <p className="text-gray-600">
-                  Reservamos o direito de modificar estes termos a qualquer momento. As alterações entrarão em vigor imediatamente após sua publicação no site.
-                </p>
-              </div>
-
-              <div>
-                <h2 className="text-2xl font-bold mb-4">7. Contato</h2>
-                <p className="text-gray-600">
-                  Se você tiver alguma dúvida sobre estes termos, entre em contato conosco através do email: contato@strongerfitness.com.br
-                </p>
-              </div>
-            </div>
-=======
             <h2 className="text-2xl font-bold mb-4">1. Aceitação dos Termos</h2>
             <p className="mb-6">
               Ao acessar e usar este site, você concorda em cumprir e estar vinculado aos seguintes termos e condições de uso. Se você não concordar com qualquer parte destes termos, por favor, não use nosso site.
@@ -103,7 +51,6 @@ export default function TermosPage() {
             <p className="mb-6">
               Se você tiver alguma dúvida sobre estes termos, entre em contato conosco através do formulário de contato ou por telefone.
             </p>
->>>>>>> a73b54eddfb150a40b8283ef9102b7090f1fe1ab
           </div>
         </div>
       </section>
