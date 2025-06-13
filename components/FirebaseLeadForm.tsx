@@ -46,7 +46,7 @@ const FirebaseLeadForm: React.FC<FirebaseLeadFormProps> = ({ onSuccess }) => {
         className="w-full max-w-md bg-zinc-900 border border-zinc-700 rounded-xl shadow-2xl p-6 space-y-5 font-mono relative"
       >
         <h2 className="text-2xl md:text-3xl font-bold text-red-600 text-center">
-        ENTRAR PARA A TRIAGEM
+        CT Stronger Fitness
         </h2>
         {message && (
           <div className={`text-center text-sm font-semibold ${message.includes('✅') ? 'text-green-400' : 'text-red-400'}`}>

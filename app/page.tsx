@@ -84,20 +84,9 @@ export default function Home() {
             style={{ maxWidth: '100%', height: 'auto' }}
           />
 
-          {/* Botão de Cadastro, Formulário ou Chat */}
-          {!showForm && !leadRegistered && (
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setShowForm(true)}
-              disabled={isLoading}
-              className="bg-white text-black px-8 py-4 rounded-none text-lg font-bold hover:bg-gray-200 transition-colors disabled:opacity-50 shadow-xl border border-white/20"
-            >
-              CADASTRAR
-            </motion.button>
-          )}
-          {showForm && !leadRegistered && (
-            <FirebaseLeadForm onSuccess={() => { setLeadRegistered(true); setShowForm(false); }} />
+          {/* Formulário direto na landing page */}
+          {!leadRegistered && (
+            <FirebaseLeadForm onSuccess={() => setLeadRegistered(true)} />
           )}
           {leadRegistered && (
             <div className="flex flex-col items-center justify-center">
