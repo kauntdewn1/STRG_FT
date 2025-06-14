@@ -1,42 +1,38 @@
 "use client";
 
-import React, { useState } from 'react';
-import { collection, addDoc } from "firebase/firestore";
+import { useState } from 'react';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
-interface FirebaseLeadFormProps {
-  onSuccess?: () => void;
-}
-
-const FirebaseLeadForm: React.FC<FirebaseLeadFormProps> = ({ onSuccess }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [whatsapp, setWhatsapp] = useState('');
-  const [submitting, setSubmitting] = useState(false);
-  const [message, setMessage] = useState('');
+export default function FirebaseLeadForm({ onSuccess }: { onSuccess?: () => void }) {
+  const [formData, setFormData] = useState({
+    nome: '',
+    email: '',
+    whatsapp: ''
+  });
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitting(true);
-    setMessage('');
+    setStatus('loading');
+
     try {
-      await addDoc(collection(db, "leads"), {
-        name,
-        email,
-        whatsapp,
-        timestamp: new Date(),
+      await addDoc(collection(db, 'leads'), {
+        ...formData,
+        timestamp: serverTimestamp()
       });
-      setMessage('✅ Cadastro confirmado. Bem-vindo ao CT Stronger Fitness!');
-      setName('');
-      setEmail('');
-      setWhatsapp('');
-      if (onSuccess) onSuccess();
-    } catch (e) {
-      console.error("Erro ao salvar lead:", e);
-      setMessage('❌ Erro ao enviar. Tente novamente.');
-    } finally {
-      setSubmitting(false);
+      setStatus('success');
+      setFormData({ nome: '', email: '', whatsapp: '' });
+      onSuccess?.();
+    } catch (error) {
+      console.error('Erro ao salvar lead:', error);
+      setStatus('error');
     }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -48,19 +44,25 @@ const FirebaseLeadForm: React.FC<FirebaseLeadFormProps> = ({ onSuccess }) => {
         <h2 className="text-2xl md:text-3xl font-bold text-red-600 text-center">
         CT Stronger Fitness
         </h2>
-        {message && (
-          <div className={`text-center text-sm font-semibold ${message.includes('✅') ? 'text-green-400' : 'text-red-400'}`}>
-            {message}
+        {status === 'success' && (
+          <div className="text-center text-sm font-semibold text-green-400">
+            Cadastro realizado com sucesso!
+          </div>
+        )}
+        {status === 'error' && (
+          <div className="text-center text-sm font-semibold text-red-400">
+            Erro ao enviar. Tente novamente.
           </div>
         )}
         <div>
-          <label htmlFor="name" className="block text-zinc-400 mb-1">Nome:</label>
+          <label htmlFor="nome" className="block text-zinc-400 mb-1">Nome:</label>
           <input
             type="text"
-            id="name"
-            value={name}
+            id="nome"
+            name="nome"
+            value={formData.nome}
+            onChange={handleChange}
             required
-            onChange={(e) => setName(e.target.value)}
             className="w-full px-4 py-2 bg-black border border-zinc-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 placeholder-zinc-500"
             placeholder="Digite seu nome"
           />
@@ -70,9 +72,10 @@ const FirebaseLeadForm: React.FC<FirebaseLeadFormProps> = ({ onSuccess }) => {
           <input
             type="email"
             id="email"
-            value={email}
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
             required
-            onChange={(e) => setEmail(e.target.value)}
             className="w-full px-4 py-2 bg-black border border-zinc-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 placeholder-zinc-500"
             placeholder="Seu e-mail"
           />
@@ -80,21 +83,22 @@ const FirebaseLeadForm: React.FC<FirebaseLeadFormProps> = ({ onSuccess }) => {
         <div>
           <label htmlFor="whatsapp" className="block text-zinc-400 mb-1">WhatsApp:</label>
           <input
-            type="text"
+            type="tel"
             id="whatsapp"
-            value={whatsapp}
+            name="whatsapp"
+            value={formData.whatsapp}
+            onChange={handleChange}
             required
-            onChange={(e) => setWhatsapp(e.target.value)}
             className="w-full px-4 py-2 bg-black border border-zinc-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 placeholder-zinc-500"
             placeholder="Ex: (99) 99999-9999"
           />
         </div>
         <button
           type="submit"
-          disabled={submitting}
+          disabled={status === 'loading'}
           className="w-full bg-gradient-to-r from-red-600 to-rose-500 text-white font-bold py-2 px-4 rounded-md shadow-md hover:scale-105 active:scale-95 transition-all duration-300"
         >
-          {submitting ? 'ENVIANDO...' : 'CONFIRMAR CADASTRO'}
+          {status === 'loading' ? 'ENVIANDO...' : 'CONFIRMAR CADASTRO'}
         </button>
         <p className="text-xs text-center text-zinc-500 pt-4">
           Seus dados estão protegidos. Usamos apenas para contato da equipe CT Stronger Fitness.
@@ -102,6 +106,4 @@ const FirebaseLeadForm: React.FC<FirebaseLeadFormProps> = ({ onSuccess }) => {
       </form>
     </div>
   );
-};
-
-export default FirebaseLeadForm; 
+} 

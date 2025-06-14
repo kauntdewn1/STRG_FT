@@ -77,12 +77,13 @@ export default function Home() {
           className="flex flex-col items-center justify-center space-y-12"
         >
           {/* Logo centralizada sem container escuro */}
-          <img
-            src="/logo stronger1.png"
-            alt="Logo Stronger Fitness"
-            className="w-full max-w-[60px] sm:max-w-[40px] h-auto object-contain drop-shadow-2xl mx-auto my-4"
-            style={{ maxWidth: '100%', height: 'auto' }}
-          />
+          <div className="w-[80px] sm:w-[60px]">
+            <img
+              src="/logo stronger1.png"
+              alt="Logo Stronger Fitness"
+              className="w-full h-auto object-contain"
+            />
+          </div>
 
           {/* Formulário direto na landing page */}
           {!leadRegistered && (
